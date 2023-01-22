@@ -22,7 +22,9 @@ services:
       - db
     image: wordpress:latest
     volumes:
-      - wp_data:/var/www/html
+      - ./wp_app:/var/www/html
+      - ./config/php.conf.ini:/usr/local/etc/php/conf.d/conf.ini
+      - ./theme_folder:/var/www/html/wp-content/themes/theme_name
     ports:
       - 8000:80
     restart: always
@@ -30,7 +32,6 @@ services:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/db_password
-      WORDPRESS_DB_NAME: wordpress
     secrets: 
       - db_password
 
